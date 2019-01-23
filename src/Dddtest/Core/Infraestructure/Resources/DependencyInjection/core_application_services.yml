@@ -1,0 +1,6 @@
+services:
+
+  dddtest.core.application.model.service.subscribe_user_use_case:
+    class: Dddtest\Core\Application\Model\Service\SubscribeUserUseCase
+    arguments:
+      - '@dddtest.core.domain.model.service.subscribe_user_service'

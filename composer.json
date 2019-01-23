@@ -1,0 +1,25 @@
+{
+    "name": "ulabox/ddd-test",
+    "require": {
+        "symfony/console": "@stable",
+        "simple-bus/message-bus": "~1.2",
+        "egulias/email-validator": "@stable",
+        "ramsey/uuid": "^3.8"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "6.*",
+        "behat/behat":"~2.5"
+    },
+    "autoload": {
+        "psr-0": {
+            "Dddtest": "src",
+            "Tests": "tests/Unit"
+        }
+    },
+    "authors": [
+        {
+            "name": "UlaboxEng",
+            "email": "tech@ulabox.com"
+        }
+    ]
+}

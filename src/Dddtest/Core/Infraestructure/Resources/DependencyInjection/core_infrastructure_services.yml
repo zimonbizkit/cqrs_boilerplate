@@ -1,0 +1,3 @@
+services:
+  dddtest.sharedkernel.infrastructure.service.uuid_identity_provider:
+    class: Dddtest\SharedKernel\Infrastructure\Service\UuidIdentityProvider

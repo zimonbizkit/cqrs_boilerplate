@@ -1,0 +1,5 @@
+imports:
+  - { resource: core_application_services.yml }
+  - { resource: core_domain_services.yml }
+  - { resource: core_infrastructure_services.yml }
+  - { resource: core_repositories_implementation.yml }

@@ -1,0 +1,3 @@
+services:
+  dddtest.core.infraestructure.model.service.user_filestore_repository:
+    class: Dddtest\Core\Infraestructure\Repository\UserFilestoreRepository

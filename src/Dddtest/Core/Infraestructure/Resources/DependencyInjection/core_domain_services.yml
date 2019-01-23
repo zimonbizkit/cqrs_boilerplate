@@ -1,0 +1,5 @@
+services:
+  dddtest.core.domain.model.service.subscribe_user_service:
+    class: Dddtest\Core\Domain\Model\Service\SubscribeUserService
+    arguments:
+      - '@dddtest.sharedkernel.infrastructure.service.uuid_identity_provider'
