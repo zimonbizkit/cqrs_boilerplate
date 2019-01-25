@@ -48,6 +48,23 @@ class FeatureContext extends BehatContext
         \Webmozart\Assert\Assert::contains($this->output,$string->getRaw());
     }
 
+    /**
+     * @Then /^the exact output for the command should be:$/
+     */
+    public function theExactOutputForTheCommandShouldBe(PyStringNode $string)
+    {
+        \Webmozart\Assert\Assert::eq(trim($this->output),trim($string->getRaw()));
+    }
+
+    /**
+     * @Given /^the user with email "([^"]*)" will be persisted in the read model$/
+     */
+    public function theUserWithEmailWillBePersistedInTheReadModel($mail)
+    {
+
+        \Webmozart\Assert\Assert::string(strstr(file_get_contents('./_filestore__userdata'),$mail));
+    }
+
 //
 // Place your definition and hook methods here:
 //

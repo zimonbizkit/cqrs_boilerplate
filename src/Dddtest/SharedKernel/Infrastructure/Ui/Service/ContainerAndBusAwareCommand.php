@@ -2,25 +2,29 @@
 
 namespace Dddtest\SharedKernel\Infrastructure\Ui\Service;
 
-use SimpleBus\Message\Bus\Middleware\FinishesHandlingMessageBeforeHandlingNext;
-use SimpleBus\Message\Bus\Middleware\MessageBusSupportingMiddleware;
+use Dddtest\Core\Application\Model\Service\SubscribeUserCommandRequest;
+use Dddtest\SharedKernel\Application\ResponseInterface;
+use Dddtest\SharedKernel\Infrastructure\Service\ContainerTrait;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 class ContainerAndBusAwareCommand extends Command
 {
-    protected $commandBus;
+    use ContainerTrait;
 
+    private const COMMAND_HANDLERS_BY_COMMAND_NAME = [
+        SubscribeUserCommandRequest::class => 'dddtest.core.application.model.service.subscribe_user_use_case'
+    ];
+
+    /** @var Container */
     protected $container;
 
     public function __construct(?string $name = null)
     {
-        $this->commandBus = new MessageBusSupportingMiddleware();
-
         $this->configureContainer();
-        $this->configureCommandBus();
 
         parent::__construct($name);
     }
@@ -28,20 +32,15 @@ class ContainerAndBusAwareCommand extends Command
 
     private function configureContainer()
     {
-        $this->container = new ContainerBuilder();
-
-        $loader = new YamlFileLoader(
-            $this->container,
-            new FileLocator(__DIR__)
-        );
-
-        $loader->load('./../../../../Core/Infraestructure/Resources/DependencyInjection/services.yml');
-
-        $this->container->compile();
+        $this->container = $this->buildAndCompileContainer();
     }
 
-    private function configureCommandBus()
+    public function dispatch($command): ResponseInterface
     {
-        $this->commandBus->appendMiddleware(new FinishesHandlingMessageBeforeHandlingNext());
+        return $this->container->get(
+            self::COMMAND_HANDLERS_BY_COMMAND_NAME[get_class($command)]
+        )->handle($command);
+
+
     }
 }

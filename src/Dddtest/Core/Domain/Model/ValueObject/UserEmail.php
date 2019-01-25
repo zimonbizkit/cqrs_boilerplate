@@ -16,7 +16,7 @@ final class UserEmail
         $this->address = $address;
     }
 
-    public function address()
+    public function value()
     {
         return $this->address;
     }

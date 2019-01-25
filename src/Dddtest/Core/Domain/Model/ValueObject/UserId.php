@@ -14,7 +14,7 @@ class UserId implements EntityIdInterface
         $this->id = $id;
     }
 
-    public function id()
+    public function value(): string
     {
         return $this->id;
     }

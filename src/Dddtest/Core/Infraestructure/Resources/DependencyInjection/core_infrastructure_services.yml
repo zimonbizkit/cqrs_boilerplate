@@ -1,3 +1,6 @@
 services:
   dddtest.sharedkernel.infrastructure.service.uuid_identity_provider:
     class: Dddtest\SharedKernel\Infrastructure\Service\UuidIdentityProvider
+
+  dddtest.sharedkernel.infrastructure.service.domain_event_publisher:
+    class: Dddtest\SharedKernel\Infrastructure\Service\DomainEventPublisher

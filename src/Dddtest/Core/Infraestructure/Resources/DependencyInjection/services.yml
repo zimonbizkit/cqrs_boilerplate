@@ -3,3 +3,4 @@ imports:
   - { resource: core_domain_services.yml }
   - { resource: core_infrastructure_services.yml }
   - { resource: core_repositories_implementation.yml }
+  - { resource: core_domain_event_handlers.yml }

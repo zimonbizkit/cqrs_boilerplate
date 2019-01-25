@@ -2,6 +2,8 @@
 
 namespace Dddtest\SharedKernel\Application\Model\Service;
 
-interface CommandRequest
+use Dddtest\SharedKernel\Application\RequestInterface;
+
+interface CommandRequest extends RequestInterface
 {
 }

@@ -4,3 +4,4 @@ services:
     class: Dddtest\Core\Application\Model\Service\SubscribeUserUseCase
     arguments:
       - '@dddtest.core.domain.model.service.subscribe_user_service'
+      - '@dddtest.sharedkernel.infrastructure.service.domain_event_publisher'

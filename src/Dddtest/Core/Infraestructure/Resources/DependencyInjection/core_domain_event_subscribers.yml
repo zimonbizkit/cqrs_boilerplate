@@ -1,7 +1,4 @@
-services:
-  dddtest.core.domain.read_model.listener.on_user_subscribed_event_persist_it_into_the_database_listener:
-    class: Dddtest\Core\Domain\ReadModel\Listener\OnUserSubscribedEventPersistItTheDatabaseListener
-    arguments:
-      - '@dddtest.core.infraestructure.model.service.user_filestore_repository'
-    tags:
-      - { name: event_subscriber , subscribes_to: Dddtest\Core\Domain\Model\Event\UserSubscribedEvent }
+events:
+  event: Dddtest\Core\Domain\Model\Event\UserSubscribedEvent
+  listeners:
+    - 'dddtest.core.domain.read_model.listener.on_user_subscribed_event_persist_it_in_the_database_listener'

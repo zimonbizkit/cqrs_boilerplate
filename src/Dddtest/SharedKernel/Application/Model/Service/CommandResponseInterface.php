@@ -2,7 +2,9 @@
 
 namespace Dddtest\SharedKernel\Application\Model\Service;
 
-interface CommandResponseInterface
+use Dddtest\SharedKernel\Application\ResponseInterface;
+
+interface CommandResponseInterface extends ResponseInterface
 {
     public function getStatus();
 

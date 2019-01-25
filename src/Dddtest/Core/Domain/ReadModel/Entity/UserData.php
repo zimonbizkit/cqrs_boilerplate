@@ -1,6 +1,6 @@
 <?php
 
-namespace Dddtest\Core\Domain\ReadModel\ValueObject;
+namespace Dddtest\Core\Domain\ReadModel\Entity;
 
 use Dddtest\SharedKernel\Domain\Entity\DomainEntityInterface;
 

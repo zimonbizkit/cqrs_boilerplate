@@ -2,7 +2,6 @@
 
 namespace Dddtest\Core\Domain\Model\Service;
 
-use Dddtest\Core\Domain\Model\Repository\UserRepositoryInterface;
 use Dddtest\Core\Domain\Model\Entity\User;
 use Dddtest\SharedKernel\Domain\Service\IdentityProviderInterface;
 

@@ -1,0 +1,5 @@
+services:
+  dddtest.core.domain.read_model.listener.on_user_subscribed_event_persist_it_in_the_database_listener:
+    class: Dddtest\Core\Domain\ReadModel\Listener\OnUserSubscribedEventPersistItTheDatabaseListener
+    arguments:
+      - '@dddtest.core.infraestructure.model.service.user_filestore_repository'

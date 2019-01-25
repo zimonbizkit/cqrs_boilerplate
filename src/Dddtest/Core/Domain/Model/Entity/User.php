@@ -1,16 +1,17 @@
 <?php
 namespace Dddtest\Core\Domain\Model\Entity;
 
+use Dddtest\Core\Domain\Model\Event\UserSubscribedEvent;
 use Dddtest\Core\Domain\Model\ValueObject\UserEmail;
 use Dddtest\Core\Domain\Model\ValueObject\UserId;
 use Dddtest\SharedKernel\Domain\Entity\DomainEntityInterface;
+use Dddtest\SharedKernel\Domain\Entity\Entity;
 
-class User implements DomainEntityInterface
+class User extends Entity Implements DomainEntityInterface
 {
     private $id;
 
     private $email;
-
 
     private function __construct(UserId $id, UserEmail $email)
     {
@@ -20,21 +21,25 @@ class User implements DomainEntityInterface
 
     public static function subscribe($id, $email)
     {
-        return new self(new UserId($id), new UserEmail($email));
+        $user = new self(new UserId($id), new UserEmail($email));
+        $user->recordEvent(
+            new UserSubscribedEvent([
+                UserSubscribedEvent::EMAIL_FIELD => $email,
+                UserSubscribedEvent::ID_FIELD => $id
+            ])
+        );
+
+        return $user;
     }
 
-   public function id()
+
+   public function id(): UserId
     {
         return $this->id;
     }
 
-    public function email()
+    public function email(): UserEmail
     {
         return $this->email;
-    }
-
-    public function __toString()
-    {
-        return (string) $this->email;
     }
 }

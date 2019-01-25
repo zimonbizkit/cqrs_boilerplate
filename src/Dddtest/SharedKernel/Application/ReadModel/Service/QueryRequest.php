@@ -2,6 +2,8 @@
 
 namespace Dddtest\SharedKernel\Application\ReadModel\Service;
 
-interface QueryRequest
+use Dddtest\SharedKernel\Application\RequestInterface;
+
+interface QueryRequest extends RequestInterface
 {
 }
