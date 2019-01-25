@@ -8,6 +8,7 @@ use Dddtest\Core\Application\Model\Service\SubscribeUserUseCase;
 use Dddtest\Core\Domain\Model\Entity\User;
 use Dddtest\Core\Domain\Model\Service\SubscribeUserService;
 use Dddtest\SharedKernel\Application\Model\Service\BaseUseCase;
+use Dddtest\SharedKernel\Domain\Service\DomainEventPublisherInterface;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
@@ -22,13 +23,20 @@ class SubscribeUserUseCaseTest extends TestCase
     /** @var SubscribeUserUseCase */
     private $subscribeUserUseCase;
 
+    /** @var DomainEventPublisherInterface | \PHPUnit_Framework_MockObject_MockObject */
+    private $domainEventPublisherMock;
+
     public function setUp()
     {
         $this->subscribeUserServiceMock = $this->getMockBuilder(SubscribeUserService::class)
             ->disableOriginalConstructor()->getMock();
 
+        $this->domainEventPublisherMock = $this->getMockBuilder(DomainEventPublisherInterface::class)
+            ->disableOriginalConstructor()->getMock();
+
         $this->subscribeUserUseCase = new SubscribeUserUseCase(
-            $this->subscribeUserServiceMock
+            $this->subscribeUserServiceMock,
+            $this->domainEventPublisherMock
         );
     }
 
@@ -42,6 +50,9 @@ class SubscribeUserUseCaseTest extends TestCase
             ->willReturn($fakeUser);
 
         $fakeRequest = new SubscribeUserCommandRequest(self::FAKE_VALID_EMAIL);
+
+        $this->domainEventPublisherMock->expects($this->once())
+            ->method('publish');
         $response = $this->subscribeUserUseCase->handle($fakeRequest);
 
         $this->assertInstanceOf(SubscribeUserCommandResponse::class,$response);
@@ -56,7 +67,8 @@ class SubscribeUserUseCaseTest extends TestCase
             ->method('subscribe')
             ->with(self::FAKE_INVALID_EMAIL)
             ->willThrowException(new \InvalidArgumentException());
-
+        $this->domainEventPublisherMock->expects($this->never())
+            ->method('publish');
         $fakeRequest = new SubscribeUserCommandRequest(self::FAKE_INVALID_EMAIL);
         $response = $this->subscribeUserUseCase->handle($fakeRequest);
 
